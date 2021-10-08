@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem ;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour{
 	
@@ -9,9 +10,15 @@ public class PlayerController : MonoBehaviour{
 	public float speed;
 	private int count;
 
+	private int numPickUps = 11;
+	public Text scoreText;
+	public Text winText;
+
     private void Start()
     {
 		count = 0;
+		winText.text = "";
+		SetCountText();
     }
 
     void OnMove (InputValue value) {
@@ -31,7 +38,17 @@ public class PlayerController : MonoBehaviour{
 			other.gameObject.SetActive(false);
 			count++;
 			Debug.Log(count);
+			SetCountText();
 		}
     }
 
+	private void SetCountText() 
+	{
+		scoreText.text = "Score : " + count.ToString();
+
+		if (count >= numPickUps)
+		{
+			winText.text = " You win ! ";
+		}
+	}
 }
